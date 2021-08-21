@@ -1,72 +1,49 @@
-//memory section
-const memory = document.getElementById('memory16');
-memory.addEventListener('click', function () {
-  document.getElementById('memory-cost').innerText = '180';
-  netPrice();
-});
-
-const memory2 = document.getElementById('memory8');
-memory2.addEventListener('click', function () {
-  document.getElementById('memory-cost').innerText = '0';
-  netPrice();
-});
-
-//storage
-//256gb
-const storage = document.getElementById('storage256');
-storage.addEventListener('click', function () {
-  document.getElementById('storage-cost').innerText = '0';
-  netPrice();
-});
-
-//512gb
-const storagee = document.getElementById('storage512');
-storagee.addEventListener('click', function () {
-  document.getElementById('storage-cost').innerText = '100';
-  netPrice();
-});
-
-//1tb
-const lastStorage = document.getElementById('storage1tb');
-lastStorage.addEventListener('click', function () {
-  document.getElementById('storage-cost').innerText = '180';
-  netPrice();
-});
-
-//delivery section
-const freeDelivery = document.getElementById('free-delivery');
-freeDelivery.addEventListener('click', function () {
-  document.getElementById('delivery-const').innerText = '0';
-  netPrice();
-});
-
-const delivery = document.getElementById('delivery');
-delivery.addEventListener('click', function () {
-  document.getElementById('delivery-const').innerText = '20';
-  netPrice();
-});
-
-// sum of all the prices
-
-function netPrice() {
-  const bestPriceCost = parseInt(
-    document.getElementById('best-price').innerText
-  );
-
-  const deliveryCost = parseInt(
-    document.getElementById('delivery-const').innerText
-  );
-
-  const memoryCost = parseInt(document.getElementById('memory-cost').innerText);
-
-  const storageCost = parseInt(
-    document.getElementById('storage-cost').innerText
-  );
-
-  let netCostPrice = bestPriceCost + deliveryCost + memoryCost + storageCost;
-
-  const totalPrice = document.getElementById('total-price');
-  totalPrice.innerText = netCostPrice;
+function getPrice(product,price){
+  const memory = document.getElementById(product);
+  memory.innerText = price;
+  calc()
 }
+function calc(){
+  const fixed = document.getElementById("fixed").innerText;
+  const memories = document.getElementById("memories").innerText;
+  const storages = document.getElementById("storages").innerText;
+  const deliveries = document.getElementById("deliveries").innerText;
+  const total= parseInt(fixed)+parseInt(memories)+parseInt(storages)+parseInt(deliveries)
+  document.getElementById("total").innerText=total;
+  document.getElementById("last-total").innerText=total;
+}
+//
+const firstMemory = document.getElementById("memory-first").addEventListener("click", function () {
+  getPrice("memories",0);
+})
+const secondMemory = document.getElementById("memory-second").addEventListener("click", function () {
+  getPrice("memories",180);
+})
 
+const firstStorage = document.getElementById("storage-first").addEventListener("click", function () {
+  getPrice("storages",0);
+})
+const secondStorage = document.getElementById("storage-second").addEventListener("click", function () {
+  getPrice("storages",100);
+})
+const thirdStorage = document.getElementById("storage-third").addEventListener("click", function () {
+  getPrice("storages",180);
+})
 
+const firstDelivery = document.getElementById("delivery-first").addEventListener("click", function () {
+  getPrice("deliveries",0);
+})
+const secondDelivery = document.getElementById("delivery-second").addEventListener("click", function () {
+  getPrice("deliveries",20);
+})
+
+document.getElementById("promo-btn").addEventListener("click" ,function(){
+  const promoInput = document.getElementById("promo-Input");
+  if(promoInput.value=="stevekaku"){
+      const promoOutput=document.getElementById("last-total");
+      const promoParcentage=promoOutput.innerText*20/100;
+      promoOutput.innerText=promoOutput.innerText-promoParcentage;
+  }
+  document.getElementById("promo-btn").disabled=true;
+  promoInput.value=""
+})
